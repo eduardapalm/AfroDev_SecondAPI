@@ -15,4 +15,30 @@ router.post('/agendamentos', async (req, resp) => {
     resp.send(JSON.stringify(agendamento));
 });
 
+router.get('/agendamentos/:idAgendamento', async (req, resp)=> {
+    try {
+        const id = req.params.idAgendamento;
+        const agendamento = new Agendamento({id:id})
+        await agendamento.buscar();
+        resp.send(JSON.stringify(agendamento));
+    } catch (error) {
+        resp.send(JSON.stringify({
+            mensagem: error.message
+        }));
+    }
+});
+
+router.delete('/agendamentos/:idAgendamento', async (req, resp)=> {
+    try {
+        const id = req.params.idAgendamento;
+        const agendamento = new Agendamento({id:id})
+        await agendamento.remover();
+        resp.status(204).send('Registro removido')
+    } catch (error) {
+        resp.send(JSON.stringify({
+            mensagem: error.message
+        }))
+    }
+});
+
 module.exports = router

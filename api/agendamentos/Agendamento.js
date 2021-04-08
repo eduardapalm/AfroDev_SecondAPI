@@ -23,6 +23,19 @@ class Agendamento {
         this.data_criacao = result.data_criacao;
         this.data_atualizacao = result.data_atualizacao;
     }
-}
 
+    async buscar(){
+        const result = await TabelaAgendamento.buscarPorPK(this.id);
+        this.nome_servico = result.nome_servico;
+        this.nome_cliente = result.nome_cliente;
+        this.status = result.status;
+        this.data_agendamento = result.data_agendamento;
+        this.data_criacao = result.data_criacao;
+        this.data_atualizacao = result.data_atualizacao;
+    }
+
+    async remover(){
+        await TabelaAgendamento.remover(this.id)
+    }
+}
 module.exports = Agendamento;
