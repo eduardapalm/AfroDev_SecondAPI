@@ -1,3 +1,4 @@
+const { removeAllListeners } = require('nodemon');
 const modeloAgendamento = require('./modelTabelaAgendamento');
 
 module.exports = {
@@ -21,5 +22,14 @@ module.exports = {
                 id: id
             }
         });
+    },
+
+    async atualizar(id, dados) {
+        return await modeloAgendamento.update(dados,
+            {
+                where: {
+                    id: id
+                }
+            })
     }
 }
