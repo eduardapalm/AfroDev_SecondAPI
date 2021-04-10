@@ -9,7 +9,7 @@ module.exports = () => {
     app.use((req, resp, next) => {
         let formatoSolicitado = req.header('Accept');
         if(formatoSolicitado === '*/*'){
-            formatoSolicitado = 'application/json';
+            formatoSolicitado = 'application/json'
         }
         if(FormatosValidos.indexOf(formatoSolicitado) === -1) {
             resp.status(406);

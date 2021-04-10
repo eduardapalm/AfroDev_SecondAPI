@@ -1,4 +1,3 @@
-const { removeAllListeners } = require('nodemon');
 const modeloAgendamento = require('./modelTabelaAgendamento');
 
 module.exports = {
@@ -7,7 +6,6 @@ module.exports = {
             return await modeloAgendamento.findAll({
             raw: true,
         });
-
         } catch (error) {
             throw error
         }
@@ -19,7 +17,6 @@ module.exports = {
         } catch (error) {
             throw error
         }
-
     },
 
     async buscarPorPK(id) {
@@ -27,7 +24,7 @@ module.exports = {
         return await modeloAgendamento.findByPk(id);
         } catch (error) {
             throw error
-        }
+        };
     },
 
     async remover(id) {
@@ -47,7 +44,7 @@ module.exports = {
             return await modeloAgendamento.update(dados,
             {
                 where: {
-                    id: id
+                    id:id
                 }
             })
         } catch (error) {
