@@ -49,6 +49,7 @@ router.put('/agendamentos/:idAgendamento', async (req, resp) => {
         const dados = Object.assign({}, dadosBody, { id: id })
         const agendamento = new Agendamento(dados);
         await agendamento.atualizar()
+        resp.status(200).send(JSON.stringify(agendamento));
     } catch (error) {
         throw error
     }
