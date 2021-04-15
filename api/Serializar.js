@@ -16,9 +16,9 @@ class Serializar {
             this.tag = this.tagList;
         }
         return jsontoxml({
-            [this.tag]: dados
+            [this.tag]:dados
         });
-    };
+    }
 
     transformar(dados) {
         dados = this.filtrar(dados);
@@ -69,7 +69,7 @@ class SerializarAgendamento extends Serializar {
             'id', 'nome_cliente', 'data_agendamento'
         ].concat(camposPersonalizados || []);
         this.tag = 'Agendamento';
-        this.taglist = 'Agendamentos';
+        this.tagList = 'Agendamentos';
     }
 }
 
@@ -81,12 +81,12 @@ class SerializarErro extends Serializar {
             'id', 'mensagem'
         ].concat(camposPersonalizados || []);
         this.tag = 'Error';
-        this.taglist = 'Erros'
+        this.tagList = 'Erros'
     }
 }
 
 class SerializarUsuario extends Serializar {
-    constructor(contentType, camposPersonalizados){
+    constructor(contentType, camposPersonalizados) {
         super();
         this.contentType = contentType;
         this.camposPermitidos = [
@@ -96,6 +96,7 @@ class SerializarUsuario extends Serializar {
         this.tagList = 'Usuarios';
     }
 }
+
 
 module.exports = {
     Serializar: Serializar,

@@ -13,13 +13,13 @@ const columns = {
     senha: {
         type: Sequelize.STRING,
         allowNull: false
-    }
+    },
 }
 
 const sequelizeOptions = {
     freezeTableName: true,
     tableName: 'usuario',
-    timestamps: true,
+    timestamps:true,
     createdAt: 'data_criacao',
     updatedAt: 'data_atualizacao'
 };
