@@ -7,7 +7,8 @@ const FormatosValidos = require('../Serializar').FormatosValidos;
 const NaoEncontrado = require('../errors/NaoEncontrado');
 const CampoInvalido = require('../errors/CampoInvalido');
 const SerializarError = require('../Serializar').SerializarErro;
-const DadosNaoInformados = require("../errors/DadosNaoInformados");
+const DadosNaoInformados = require('../errors/DadosNaoInformados');
+const passport = require('../usuarios/autenticacao');
 
 module.exports = () => {
     const app = express()
@@ -28,20 +29,17 @@ module.exports = () => {
     app.use(express.json())
     app.use('/api', routesAgendamento);
     app.use('/api', routesUsuario);
-    //app.use('/api', routesLogin);
-    app.use((error,req, resp, next) => {
+    app.use('/api', routesLogin);
+    app.use((error, req, resp, next) => {
         let status = 500;
-        if(error instanceof CampoInvalido) {
+        if(error instanceof CampoInvalido || error instanceof DadosNaoInformados) {
             status = 400
         }
-        if(error instanceof FormatoInvalido) {
+        if(error instanceof NaoEncontrado) {
             status = 404
         }
-        if(error instanceof NaoEncontrado){
+        if(error instanceof FormatoInvalido) {
             status = 406
-        }
-        if(error instanceof DadosNaoInformados) {
-            status = 400
         }
         serializarError = new SerializarError(
             resp.getHeader('Content-Type')
@@ -49,7 +47,7 @@ module.exports = () => {
 
         resp.status(status).send(
             serializarError.transformar({
-                id: error.id,
+                id: error.idError,
                 mensagem: error.message
             })
         );

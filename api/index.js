@@ -1,5 +1,5 @@
 //This page brings NPM packages: Express and Config. 
-
+require('dotenv').config();
 const configExpress = require('./config/configExpress'); 
 const config = require('config'); 
 
