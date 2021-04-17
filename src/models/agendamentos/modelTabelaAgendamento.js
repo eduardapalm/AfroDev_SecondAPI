@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize'); //Inserting sequelize, so we can create columns on a easier way.
-const instanciadb = require('../db'); //Requiring the database data so we can isert the column structureon it.
+const instanciadb = require('../../db'); //Requiring the database data so we can isert the column structureon it.
 
 
 //Creating the columns.

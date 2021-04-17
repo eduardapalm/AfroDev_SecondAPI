@@ -1,9 +1,9 @@
-const CampoInvalido = require('../errors/CampoInvalido');
-const TabelaUsuario = require('./TabelaUsuario');
-const CampoQtdMinima = require('../errors/CampoQtdMinima');
-const CampoQtdMaxima = require('../errors/CampoQtdMaxima');
-const NaoEncontrado = require('../errors/NaoEncontrado');
-const DadosNaoInformados = require('../errors/DadosNaoInformados');
+const CampoInvalido = require('../../errors/CampoInvalido');
+const TabelaUsuario = require('../../models/usuarios/TabelaUsuario');
+const CampoQtdMinima = require('../../errors/CampoQtdMinima');
+const CampoQtdMaxima = require('../../errors/CampoQtdMaxima');
+const NaoEncontrado = require('../../errors/NaoEncontrado');
+const DadosNaoInformados = require('../../errors/DadosNaoInformados');
 const bcrypt = require('bcrypt')
 
 class Usuario {
@@ -66,11 +66,14 @@ const result = await TabelaUsuario.buscarPorEmail(this.email);
         const camposAtualizaveis = ['nome', 'email', 'senha'];
         const dadosAtualizar = {}
 
-        camposAtualizaveis.forEach((campo) => {
+        camposAtualizaveis.forEach(async (campo) => {
             const valor = this[campo];
             if(typeof valor === 'string' && valor.length > 0) {
                 dadosAtualizar[campo] = valor;
             };
+            if(campo === 'senha'){
+               dadosAtualizar[campo] = await this.gerarHash(valor)
+            }
         });
 
         if(Object.keys(dadosAtualizar).length === 0){
@@ -78,7 +81,6 @@ const result = await TabelaUsuario.buscarPorEmail(this.email);
         }
 
         this.validar();
-
         await TabelaUsuario.atualizar(this.id, dadosAtualizar);
     };
 
